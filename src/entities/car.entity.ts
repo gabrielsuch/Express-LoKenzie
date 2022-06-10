@@ -18,7 +18,7 @@ export class Car {
     @Column({ length: 10, unique: true })
     plate: string;
 
-    @Column({ type: "integer", length: 4 })
+    @Column({ type: "char", length: 4 })
     year: number;
 
     @Column({ length: 50 })

@@ -12,7 +12,7 @@ import {
 import { Store } from "./store.entity";
 import { UserCarReservation } from "./user-car-reservation.entity";
 
-@Entity("user")
+@Entity("users")
 export class User {
     @PrimaryGeneratedColumn("uuid")
     id?: string;
