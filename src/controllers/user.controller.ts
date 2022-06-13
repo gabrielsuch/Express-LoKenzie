@@ -3,23 +3,35 @@ import {Request, Response} from "express"
 import UserService from "../services/user.service"
 
 
-// QUANDO COMEÇAR A CODAR, NÃO ESQUECER DE APAGAR AS LINHAS COMENTADAS
-
 class UserController {
     getAllUsersController = async (req: Request, res: Response) => {
-        // const exemplo = await UserService.getAllUsersService()
+        const users = await UserService.getAllUsersService()
+
+        return res.status(users.status).json(users.message)
     }
     
     createUserController = async (req: Request, res: Response) => {
-        // const exemplo = await UserService.createUserService()
+        const user = await UserService.createUserService(req)
+
+        return res.status(user.status).json(user.message)
     }
 
     updateUserController = async (req: Request, res: Response) => {
-        // const exemplo = await UserService.updateUserService()
+        const user = await UserService.updateUserService(req)
+
+        return res.status(user.status).json(user.message)
+    }
+
+    deleteUserController = async (req: Request, res: Response) => {
+        const user = await UserService.deleteUserService(req)
+
+        return res.status(user.status).json(user.message)
     }
 
     loginController = async (req: Request, res: Response) => {
-        // const exemplo = await UserService.loginService()
+        const user = await UserService.loginService(req)
+
+        return res.status(user.status).json(user.message)
     }
 }
 
