@@ -18,8 +18,8 @@ const userRoutes = () => {
     route.get("", verifyTokenMiddleware, verifyAdmMiddleware, UserController.getAllUsersController)
     route.post("/register", validateSchemaMiddleware(createUserSchema), UserController.createUserController)
     route.post("/login", validateSchemaMiddleware(loginSchema), UserController.loginController)
-    route.patch("/:user_id", validateSchemaMiddleware(updateUserSchema), UserController.updateUserController)
-    route.delete("/:user_id", UserController.deleteUserController)
+    route.patch("/:user_id", verifyTokenMiddleware, validateSchemaMiddleware(updateUserSchema), UserController.updateUserController)
+    route.delete("/:user_id", verifyTokenMiddleware, UserController.deleteUserController)
 
     return route
 }

@@ -10,6 +10,10 @@ const verifyAdmMiddleware = async (req: Request, res: Response, next: NextFuncti
         email: req.decoded
     })
 
+    if(!findUser) {
+        return res.status(404).json({error: "User not found"})
+    }
+
     if(findUser && !findUser.isAdm) {
         return res.status(401).json({error: "Missing Admin Permission"})
     }
