@@ -60,6 +60,10 @@ class UserService {
             return {status: 401, message: {error: "Cannot change isAdm key."}}
         }
 
+        if(exists.includes("password")) {
+            req.validated.password = await bcrypt.hash(req.validated.password, 10)
+        }
+
         await userRepository.update(req.params.user_id, req.validated)
 
         return {status: 200, message: {message: "User Updated!"}}
