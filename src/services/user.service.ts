@@ -7,6 +7,7 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 
+
 dotenv.config()
 
 
@@ -15,7 +16,13 @@ class UserService {
         const userRepository = AppDataSource.getRepository(User)
         const users = await userRepository.find()
 
-        return {status: 200, message: users}
+        const returnUser = users.map((user) => {
+            const {password, ...removePassword} = user
+            
+            return removePassword
+        })
+
+        return {status: 200, message: returnUser}
     }
 
     createUserService = async ({validated}: Request) => {
@@ -33,7 +40,9 @@ class UserService {
         userRepository.create(validated)
         await userRepository.save(validated)
 
-        return {status: 201, message: validated}
+        const {password, ...removePassword} = validated
+
+        return {status: 201, message: removePassword}
     }
 
     updateUserService = async (req: Request) => {
@@ -48,6 +57,10 @@ class UserService {
 
         if(!findUser) {
             return {status: 404, message: {error: "User not found"}}
+        }
+
+        if(!loggedUser) {
+            return {status: 404, message: {error: "Current user doesn't exists"}}
         }
 
         if(loggedUser && loggedUser.email !== findUser.email && !loggedUser.isAdm) {
@@ -66,7 +79,13 @@ class UserService {
 
         await userRepository.update(req.params.user_id, req.validated)
 
-        return {status: 200, message: {message: "User Updated!"}}
+        const newUser = await userRepository.findOneBy({
+            id: req.params.user_id
+        })
+
+        const {password, ...removePassword}: any = newUser
+
+        return {status: 200, message: removePassword}
     }
 
     deleteUserService = async (req: Request) => {
@@ -83,14 +102,14 @@ class UserService {
             return {status: 404, message: {error: "User not found"}}
         }
 
-        if(loggedUser && loggedUser.email !== findUser.email && !loggedUser.isAdm) {
+        if(!loggedUser) {
+            return {status: 404, message: {error: "Current user doesn't exists"}}
+        }
+
+        if(loggedUser && findUser && loggedUser.email !== findUser.email && !loggedUser.isAdm) {
             return {status: 401, message: {error: "Cannot delete other user."}}
         }
 
-        if(loggedUser && loggedUser.email === findUser.email) {
-            req.decoded = ""
-        }
-        
         await userRepository.delete(req.params.user_id)
 
         return {status: 200, message: {message: "User Deleted!"}}
