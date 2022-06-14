@@ -42,13 +42,27 @@ class UserService {
             id: req.params.user_id
         })
 
+        const loggedUser = await userRepository.findOneBy({
+            email: req.decoded
+        })
+
         if(!findUser) {
             return {status: 404, message: {error: "User not found"}}
         }
 
+        if(loggedUser && loggedUser.email !== findUser.email && !loggedUser.isAdm) {
+            return {status: 401, message: {error: "Cannot update other user."}}
+        }
+
+        const exists = Object.keys(req.body)
+
+        if(loggedUser && !loggedUser.isAdm && exists.includes("isAdm")) {
+            return {status: 401, message: {error: "Cannot change isAdm key."}}
+        }
+
         await userRepository.update(req.params.user_id, req.validated)
 
-        return {status: 200, message: "OK"}
+        return {status: 200, message: {message: "User Updated!"}}
     }
 
     deleteUserService = async (req: Request) => {
@@ -57,13 +71,25 @@ class UserService {
             id: req.params.user_id
         })
 
+        const loggedUser = await userRepository.findOneBy({
+            email: req.decoded
+        })
+
         if(!findUser) {
             return {status: 404, message: {error: "User not found"}}
         }
 
+        if(loggedUser && loggedUser.email !== findUser.email && !loggedUser.isAdm) {
+            return {status: 401, message: {error: "Cannot delete other user."}}
+        }
+
+        if(loggedUser && loggedUser.email === findUser.email) {
+            req.decoded = ""
+        }
+        
         await userRepository.delete(req.params.user_id)
 
-        return {status: 200, message: "Deleted"}
+        return {status: 200, message: {message: "User Deleted!"}}
     }
 
     loginService = async ({validated}: Request) => {
