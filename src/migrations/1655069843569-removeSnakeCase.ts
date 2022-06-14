@@ -1,5 +1,11 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
+import dotenv from "dotenv"
+import bcrypt from "bcrypt"
+
+dotenv.config()
+
+
 export class removeSnakeCase1655069843569 implements MigrationInterface {
     name = 'removeSnakeCase1655069843569'
 
@@ -22,6 +28,12 @@ export class removeSnakeCase1655069843569 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "users_reservation_history_reservation" ADD CONSTRAINT "FK_5269e3b4258928eec29e58890dd" FOREIGN KEY ("reservationId") REFERENCES "reservation"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
         await queryRunner.query(`ALTER TABLE "cars_reservation_history_reservation" ADD CONSTRAINT "FK_8917ab92f85df68739482d81baf" FOREIGN KEY ("carsId") REFERENCES "cars"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
         await queryRunner.query(`ALTER TABLE "cars_reservation_history_reservation" ADD CONSTRAINT "FK_532c91488b769e997f674760bd3" FOREIGN KEY ("reservationId") REFERENCES "reservation"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
+        await queryRunner.query(
+            `
+                INSERT INTO "users" ("name", "email", "password", "isAdm")
+                VALUES ('${process.env.ADMIN_NAME}', '${process.env.ADMIN_EMAIL}', '${bcrypt.hashSync(String(process.env.ADMIN_PASSWORD), 10)}', true)
+            `
+        )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
