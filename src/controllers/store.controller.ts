@@ -2,24 +2,29 @@ import {Request, Response} from "express"
 
 import StoreService from "../services/store.service"
 
-
-// QUANDO COMEÇAR A CODAR, NÃO ESQUECER DE APAGAR AS LINHAS COMENTADAS
-
 class StoreController {
     getAllStoreController = async (req: Request, res: Response) => {
-        // const exemplo = await StoreService.getStoreService()
+        const stores = await StoreService.getAllStoreService()
+
+        return res.status(stores.status).json(stores.message)
     }
     
     createStoreController = async (req: Request, res: Response) => {
-        // const exemplo = await StoreService.createStoreService()
+        const store = await StoreService.createStoreService(req)
+
+        return res.status(store.status).json(store.message)
     }
 
     updateStoreController = async (req: Request, res: Response) => {
-        // const exemplo = await StoreService.updateStoreService()
+        const store = await StoreService.updateStoreService(req)
+
+        return res.status(store.status).json(store.message)
     }
 
     deleteStoreController = async (req: Request, res: Response) => {
-        // const exemplo = await StoreService.deleteStoreService()
+        const store = await StoreService.deleteStoreService(req)
+
+        return res.status(store.status).json(store.message)
     }
 }
 
