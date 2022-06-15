@@ -1,24 +1,50 @@
+import { Request } from "express";
+
+import AppDataSource from "../data-source";
+import { Car } from "../entities";
+
 class CarService {
-    getAllCarsService = async () => {
-        
+  getAllCarsService = async () => {
+    const carRepository = AppDataSource.getRepository(Car);
+    const cars = await carRepository.find();
+
+    const retunrCar = cars.map((car) => {
+      const { plate, ...removePlate } = car;
+
+      return removePlate;
+    });
+
+    return { status: 200, message: retunrCar };
+  };
+
+  getCarByIdService = async () => {};
+
+  createCarService = async ({ body }: Request) => {
+    const carRepository = AppDataSource.getRepository(Car);
+    const carAlreadyExist = await carRepository.findOneBy({
+      plate: body.plate,
+    });
+
+    if (carAlreadyExist) {
+      return { status: 409, message: { error: "Car already exists." } };
     }
 
-    getCarByIdService = async () => {
-        
-    }
+    const car = new Car();
+    car.plate = body.plate;
+    car.year = body.year;
+    car.color = body.color;
+    car.brand = body.brand;
+    car.isAvailable = car.isAvailable;
 
-    createCarService = async () => {
+    carRepository.create(car);
+    await carRepository.save(car);
 
-    }
+    return { status: 201, message: car };
+  };
 
-    updateCarByIdService = async () => {
-        
-    }
+  updateCarByIdService = async () => {};
 
-    deleteCarByIdService = async () => {
-        
-    }
+  deleteCarByIdService = async () => {};
 }
 
-
-export default new CarService()
+export default new CarService();
