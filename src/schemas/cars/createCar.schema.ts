@@ -5,7 +5,7 @@ const createCarSchema = yup.object().shape({
   year: yup.number().required(),
   color: yup.string().required(),
   brand: yup.string().required(),
-  isAvaliable: yup.boolean().required(),
+  isAvailable: yup.boolean().optional(),
 });
 
 export default createCarSchema;

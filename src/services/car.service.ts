@@ -34,7 +34,7 @@ class CarService {
     car.year = body.year;
     car.color = body.color;
     car.brand = body.brand;
-    car.isAvailable = car.isAvailable;
+    car.isAvailable = body.isAvailable;
 
     carRepository.create(car);
     await carRepository.save(car);
