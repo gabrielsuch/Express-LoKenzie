@@ -17,7 +17,18 @@ class CarService {
     return { status: 200, message: retunrCar };
   };
 
-  getCarByIdService = async () => {};
+  getCarByIdService = async (req: Request) => {
+    const carRepository = AppDataSource.getRepository(Car);
+    const car = await carRepository.findOneBy({
+      id: req.params.car_id,
+    });
+
+    if (!car) {
+      return { status: 404, message: { error: "Car not found." } };
+    }
+
+    return { status: 200, message: car };
+  };
 
   createCarService = async ({ body }: Request) => {
     const carRepository = AppDataSource.getRepository(Car);
@@ -42,9 +53,35 @@ class CarService {
     return { status: 201, message: car };
   };
 
-  updateCarByIdService = async () => {};
+  updateCarByIdService = async (req: Request) => {
+    const carRepository = AppDataSource.getRepository(Car);
+    const carToUpdate = await carRepository.findOneBy({
+      id: req.params.car_id,
+    });
 
-  deleteCarByIdService = async () => {};
+    if (!carToUpdate) {
+      return { status: 404, message: "Car not found" };
+    }
+
+    carRepository.update(req.params.car_id, req.body);
+
+    return { status: 200, message: "OK" };
+  };
+
+  deleteCarByIdService = async (req: Request) => {
+    const carRepository = AppDataSource.getRepository(Car);
+    const carToDelete = await carRepository.findOneBy({
+      id: req.params.car_id,
+    });
+
+    if (!carToDelete) {
+      return { status: 404, message: "Car not found" };
+    }
+
+    carRepository.delete(req.params.car_id);
+
+    return { status: 200, message: "Deleted" };
+  };
 }
 
 export default new CarService();

@@ -31,7 +31,12 @@ const carRoutes = () => {
     CarController.updateCarByIdController
   );
 
-  route.delete("/:car_id", CarController.deleteCarByIdController);
+  route.delete(
+    "/:car_id",
+    verifyTokenMiddleware,
+    verifyAdmMiddleware,
+    CarController.deleteCarByIdController
+  );
 
   return route;
 };

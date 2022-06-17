@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 
 import CarService from "../services/car.service";
 
-// QUANDO COMEÇAR A CODAR, NÃO ESQUECER DE APAGAR AS LINHAS COMENTADAS
-
 class CarController {
   getAllCarsController = async (req: Request, res: Response) => {
     const cars = await CarService.getAllCarsService();
@@ -12,7 +10,9 @@ class CarController {
   };
 
   getCarByIdController = async (req: Request, res: Response) => {
-    // const exemplo = await CarService.getCarByIdService()
+    const car = await CarService.getCarByIdService(req);
+
+    return res.status(car.status).json(car.message);
   };
 
   createCarController = async (req: Request, res: Response) => {
@@ -22,11 +22,15 @@ class CarController {
   };
 
   updateCarByIdController = async (req: Request, res: Response) => {
-    // const exemplo = await CarService.updateCarByIdService()
+    const car = await CarService.updateCarByIdService(req);
+
+    return res.status(car.status).json(car.message);
   };
 
   deleteCarByIdController = async (req: Request, res: Response) => {
-    // const exemplo = await CarService.deleteCarByIdService()
+    const car = await CarService.deleteCarByIdService(req);
+
+    return res.status(car.status).json(car.message);
   };
 }
 
