@@ -12,6 +12,9 @@ import updateCarSchema from "../schemas/cars/updateCar.schema";
 const route = Router();
 
 const carRoutes = () => {
+  route.get("", CarController.getAllCarsController);
+  route.get("/:car_id", CarController.getCarByIdController);
+
   route.post(
     "/register",
     verifyTokenMiddleware,
@@ -19,9 +22,6 @@ const carRoutes = () => {
     validateSchemaMiddleware(createCarSchema),
     CarController.createCarController
   );
-
-  route.get("", CarController.getAllCarsController);
-  route.get("/:car_id", CarController.getCarByIdController);
 
   route.patch(
     "/:car_id",
