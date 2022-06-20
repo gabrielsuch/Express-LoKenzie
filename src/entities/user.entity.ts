@@ -5,9 +5,8 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToMany,
-  JoinTable,
   ManyToOne,
+  OneToMany,
 } from "typeorm";
 import { Store } from "./store.entity";
 import { UserCarReservation } from "./user-car-reservation.entity";
@@ -35,9 +34,9 @@ export class User {
   @Column({ default: false })
   isAdm?: boolean;
 
-  // Alterar o relacionamento para OneToMany com Reservas
-  @ManyToMany(() => UserCarReservation)
-  @JoinTable()
+  @OneToMany(() => UserCarReservation, (ucr) => ucr.user, {
+    eager: true,
+  })
   reservationHistory: UserCarReservation[];
 
   @ManyToOne(() => Store, (store) => store.employees)
