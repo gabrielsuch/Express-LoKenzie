@@ -39,14 +39,13 @@ class CarService {
     if (carAlreadyExist) {
       return { status: 409, message: { error: "Car already exists." } };
     }
-
     const car = new Car();
     car.plate = body.plate;
     car.year = body.year;
     car.color = body.color;
     car.brand = body.brand;
     car.isAvailable = body.isAvailable;
-
+    //Fazer uma validação/serialização
     carRepository.create(car);
     await carRepository.save(car);
 
@@ -60,12 +59,17 @@ class CarService {
     });
 
     if (!carToUpdate) {
-      return { status: 404, message: "Car not found" };
+      return { status: 404, message: { error: "Car not found" } };
     }
 
-    carRepository.update(req.params.car_id, req.body);
+    await carRepository.update(req.params.car_id, req.body);
+    const carUpdated = await carRepository.findOneBy({
+      id: req.params.car_id,
+    });
 
-    return { status: 200, message: "OK" };
+    console.log(carUpdated);
+
+    return { status: 200, message: carUpdated };
   };
 
   deleteCarByIdService = async (req: Request) => {
@@ -75,12 +79,12 @@ class CarService {
     });
 
     if (!carToDelete) {
-      return { status: 404, message: "Car not found" };
+      return { status: 404, message: { error: "Car not found" } };
     }
 
     carRepository.delete(req.params.car_id);
 
-    return { status: 200, message: "Deleted" };
+    return { status: 200, message: { message: "Deleted" } };
   };
 }
 
