@@ -10,7 +10,7 @@
     "typeRoots": ["./src/@types"],
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "strict": true,
-    "strictPropertyInitialization": false
+    // "strict": true,
+    // "strictPropertyInitialization": false
   }
 }
