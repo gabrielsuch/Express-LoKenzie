@@ -1,5 +1,6 @@
 import AppDataSource from "../data-source";
 import { CarGroup } from "../entities";
+import { Car } from "../entities";
 import { Request } from "express";
 
 class CarGroupService {
@@ -64,6 +65,47 @@ class CarGroupService {
     groupRepo.delete(req.params.group_id);
 
     return { status: 200, message: { message: "Deleted" } };
+  };
+
+  addCarOnGroupService = async (req: Request) => {
+    const groupRepo = AppDataSource.getRepository(CarGroup);
+    const carRepo = AppDataSource.getRepository(Car);
+
+    const carList = req.body.cars;
+
+    const group = await groupRepo.findOneBy({ id: req.params.group_id });
+
+    for (let i = 0; i < carList.length; i++) {
+      try {
+        const car = await carRepo.findOneBy({ id: carList[i] });
+      } catch {
+        return {
+          status: 404,
+          message: { message: `${carList[i]} not a valid uuid datatype` },
+        };
+      }
+
+      const car = await carRepo.findOneBy({ id: carList[i] });
+
+      if (!car) {
+        return {
+          status: 404,
+          message: { message: `Car ${carList[i]} not found` },
+        };
+      }
+    }
+
+    for (let i = 0; i < carList.length; i++) {
+      const car = await carRepo.findOneBy({ id: carList[i] });
+
+      await carRepo.update(car.id, { group: group });
+    }
+
+    await groupRepo.update(req.params.group_id, {
+      quantity: group.quantity + carList.length,
+    });
+
+    return { status: 200, message: { messsage: "Car(s) added" } };
   };
 }
 
