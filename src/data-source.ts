@@ -6,7 +6,7 @@ import path from "path";
 
 dotenv.config();
 
-const AppDataSource  = new DataSource({
+const DevEnv  = new DataSource({
     type: "postgres",
     url: process.env.DATABASE_URL,
     //ssl: {rejectUnauthorized: false},
@@ -18,10 +18,10 @@ const AppDataSource  = new DataSource({
 
 const TestEnv = new DataSource({
     type: "sqlite",
-    database: ":memory",
+    database: "../dbTest.sqlite",
     synchronize: true,
     entities: [path.join(__dirname, "./entities/**/*.{js,ts}")],
 });
 
 
-export default AppDataSource;
+export default TestEnv;
