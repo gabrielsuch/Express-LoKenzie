@@ -37,7 +37,7 @@ class CarService {
     });
 
     if (carAlreadyExist) {
-      return { status: 409, message: { error: "Car already exists." } };
+      return { status: 409, message: { error: "Car already exists" } };
     }
     const car = new Car();
     car.plate = body.plate;
@@ -67,8 +67,6 @@ class CarService {
       id: req.params.car_id,
     });
 
-    console.log(carUpdated);
-
     return { status: 200, message: carUpdated };
   };
 
@@ -84,7 +82,7 @@ class CarService {
 
     carRepository.delete(req.params.car_id);
 
-    return { status: 200, message: { message: "Car Deleted"} };
+    return { status: 200, message: { error: "Car Deleted"} };
   };
 }
 

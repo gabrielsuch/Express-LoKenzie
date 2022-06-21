@@ -34,7 +34,7 @@ class ReservationService {
     reservationRepository.create(reservation);
     await reservationRepository.save(reservation);
 
-    return { status: 201, message: { message: "Reservation made." } };
+    return { status: 201, message: { message: "Reservation made" } };
   };
 }
 
