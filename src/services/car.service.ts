@@ -82,7 +82,7 @@ class CarService {
 
     carRepository.delete(req.params.car_id);
 
-    return { status: 200, message: { error: "Car Deleted"} };
+    return { status: 200, message: { message: "Car Deleted"} };
   };
 }
 
