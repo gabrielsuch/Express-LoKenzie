@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+} from "typeorm";
+import { Car } from "./car.entity";
+import { User } from "./user.entity";
 
 @Entity("reservation")
 export class UserCarReservation {
@@ -13,4 +20,10 @@ export class UserCarReservation {
 
   @Column({ type: "date" })
   endDate: Date;
+
+  @ManyToOne(() => User, (user) => user.reservationHistory)
+  user: User;
+
+  @ManyToOne(() => Car, (car) => car.reservationHistory)
+  car: Car;
 }

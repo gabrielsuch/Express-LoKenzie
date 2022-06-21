@@ -2,9 +2,8 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToMany,
-  JoinTable,
   ManyToOne,
+  OneToMany,
 } from "typeorm";
 import { CarGroup } from "./car-group.entity";
 import { Store } from "./store.entity";
@@ -30,9 +29,9 @@ export class Car {
   @Column({ default: true })
   isAvailable?: boolean;
 
-  // Alterar o relacionamento para OneToMany com Reservas
-  @ManyToMany(() => UserCarReservation)
-  @JoinTable()
+  @OneToMany(() => UserCarReservation, (ucr) => ucr.car, {
+    eager: true,
+  })
   reservationHistory: UserCarReservation[];
 
   @ManyToOne(() => CarGroup, (group) => group.cars)
