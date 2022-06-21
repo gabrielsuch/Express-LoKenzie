@@ -32,7 +32,7 @@ class UserService {
         })
 
         if(emailExists) {
-            return {status: 409, message: {error: "Email already exists."}}
+            return {status: 409, message: {error: "Email already exists"}}
         }
 
         validated.password = await bcrypt.hash(validated.password, 10)
@@ -64,13 +64,13 @@ class UserService {
         }
 
         if(loggedUser && loggedUser.email !== findUser.email && !loggedUser.isAdm) {
-            return {status: 401, message: {error: "Cannot update other user."}}
+            return {status: 401, message: {error: "Cannot update other user"}}
         }
 
         const exists = Object.keys(req.body)
 
         if(loggedUser && !loggedUser.isAdm && exists.includes("isAdm")) {
-            return {status: 401, message: {error: "Cannot change isAdm key."}}
+            return {status: 401, message: {error: "Cannot change isAdm key"}}
         }
 
         if(exists.includes("password")) {
@@ -107,12 +107,12 @@ class UserService {
         }
 
         if(loggedUser && findUser && loggedUser.email !== findUser.email && !loggedUser.isAdm) {
-            return {status: 401, message: {error: "Cannot delete other user."}}
+            return {status: 401, message: {error: "Cannot delete other user"}}
         }
 
         await userRepository.delete(req.params.user_id)
 
-        return {status: 200, message: {message: "User Deleted!"}}
+        return {status: 200, message: {message: "User Deleted"}}
     }
 
     loginService = async ({validated}: Request) => {
@@ -122,11 +122,11 @@ class UserService {
         })
 
         if(!findUser) {
-            return {status: 404, message: {error: "Email doesn't exists."}}
+            return {status: 404, message: {error: "Email doesn't exists"}}
         }
 
         if(!(await findUser.comparePwd(validated.password))) {
-            return {status: 401, message: {error: "Email or Password doesn't matches."}}
+            return {status: 400, message: {error: "Email or Password doesn't matches"}}
         }
 
         const token = jwt.sign({email: findUser.email}, String(process.env.SECRET_KEY), {expiresIn: "24h"})

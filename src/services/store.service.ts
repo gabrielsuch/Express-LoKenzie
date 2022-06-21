@@ -37,12 +37,16 @@ class StoreService {
         })
 
         if(!findStore) {
-            return {status: 409, message: {error: "Store not found."}}
+            return {status: 404, message: {error: "Store not found"}}
         }
 
         await storeRepository.update(req.params.store_id, req.body)
 
-        return {status: 200, message: "OK"}
+        const updatedStore = await storeRepository.findOneBy({
+            id: req.params.store_id
+        })
+
+        return {status: 200, message: updatedStore}
     }
 
     deleteStoreService = async (req: Request) => {
@@ -52,12 +56,12 @@ class StoreService {
         })
 
         if(!findStore) {
-            return {status: 409, message: {error: "Store not found."}}
+            return {status: 404, message: {error: "Store not found"}}
         }
 
         await storeRepository.delete(req.params.store_id)
         
-        return {status: 200, message: "Deleted"}
+        return {status: 200, message: {message: "Store Deleted"}}
     }
 }
 
