@@ -7,12 +7,10 @@
     "moduleResolution": "node",
     "outDir": "./dist",
     "sourceMap": true,
-    "typeRoots": [
-      "./src/@types"
-    ],
+    "typeRoots": ["./src/@types"],
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "strict": true,
-    "strictPropertyInitialization": false
+    // "strict": true,
+    // "strictPropertyInitialization": false
   }
 }
