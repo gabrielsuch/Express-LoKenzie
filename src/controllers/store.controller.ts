@@ -26,6 +26,12 @@ class StoreController {
 
         return res.status(store.status).json(store.message)
     }
+
+    addWorkerToStore = async (req: Request, res: Response) => {
+        const store = await StoreService.addWorkerToStore(req)
+
+        return res.status(store.status).json(store.message)
+    }
 }
 
 

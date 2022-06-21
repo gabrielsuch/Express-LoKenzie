@@ -13,7 +13,9 @@ export class Store {
   @Column({ type: "integer" })
   quantity: number;
 
-  @OneToMany(() => User, (user) => user.employedAt)
+  @OneToMany(() => User, (user) => user.employedAt, {
+    eager: true,
+  })
   employees: User[];
 
   @OneToMany(() => Car, (car) => car.stockedAt)

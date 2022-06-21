@@ -69,7 +69,7 @@ class StoreService {
         const userRepository = AppDataSource.getRepository(User)
 
         const findStore = await storeRepository.findOneBy({id: req.params.store_id})
-        const findUser = await userRepository.findOneBy({id: req.params.user_id})
+        const findUser = await userRepository.findOneBy({email: req.body.email})
 
         if(!findStore) {
             return {status: 404, message: {error: "Store not found"}}
@@ -79,9 +79,11 @@ class StoreService {
             return {status: 404, message: {error: "User not found"}}
         }
 
-        findStore.employees = [...findStore.employees, findUser]
+        const employees = findStore.employees
+        const newEmployees = [...employees, findUser]
 
-        await storeRepository.update(req.params.store_id, findStore)
+        await userRepository.update(findUser.id, {employedAt: findStore})
+        await storeRepository.update(req.params.store_id, {employees: newEmployees})
 
         return {status: 200, message: findStore}
     }

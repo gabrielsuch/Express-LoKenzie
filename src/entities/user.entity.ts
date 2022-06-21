@@ -39,7 +39,9 @@ export class User {
   })
   reservationHistory: UserCarReservation[];
 
-  @ManyToOne(() => Store, (store) => store.employees)
+  @ManyToOne(() => Store, (store) => store.employees, {
+    eager: true
+  })
   employedAt: Store;
 
   comparePwd = async (pwdString: string): Promise<boolean> => {
