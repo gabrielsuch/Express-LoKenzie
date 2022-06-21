@@ -530,3 +530,129 @@
 	"error": "Store not found"
 }
 ```
+
+#
+
+# **Cars**
+
+# ***Criando um Carro***
+
+### `POST /cars/register - Sem Autenticação Bearer Token`
+
+<br>
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": "Invalid signature"
+}
+```
+
+### `Status 403 - Forbidden:`
+
+```json
+{
+	"error": "Missing Authorization Token"
+}
+```
+
+#
+
+### `POST /cars/register - Com Autenticação Bearer Token - Formato da Requisição:`
+
+```json
+{
+	"plate": "AAA0B11",
+	"year": "2020",
+	"color": "gray",
+	"brand": "Volvo",
+	"isAvailable": true
+}
+```
+
+### `Status 201 - Created:`
+
+```json
+{
+	"plate": "AAA0B11",
+	"year": "2020",
+	"color": "gray",
+	"brand": "Volvo",
+	"isAvailable": true,
+	"id": "df9cd676-13ef-4bff-bd9f-6d6962a6188e"
+}
+```
+
+### `Status 401 - Unauthorized:`
+
+```json
+{
+	"error": "Missing Admin Permission"
+}
+```
+
+#
+
+### `POST /cars/register - Chaves Incorretas - Formato da Requisição:`
+
+```json
+{
+	"year": "2020",
+	"color": "gray",
+	"brand": "Volvo",
+	"isAvailable": true
+}
+```
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": [
+		"plate is a required field"
+	]
+}
+```
+
+#
+
+# ***Obtendo dados de Carros***
+
+### `GET /cars - Não necessita de Autenticação - Formato da Requisição:`
+
+<br>
+
+### `Status 200 - OK:`
+
+```json
+[
+	{
+		"id": "25c57a1e-bfb0-440e-bd62-a9dab51effca",
+		"year": "2021",
+		"color": "white",
+		"brand": "Renault",
+		"isAvailable": true,
+		"reservationHistory": []
+	},
+	{
+		"id": "df9cd676-13ef-4bff-bd9f-6d6962a6188e",
+		"year": "2020",
+		"color": "gray",
+		"brand": "Volvo",
+		"isAvailable": true,
+		"reservationHistory": []
+	},
+	{
+		"id": "7f545f35-33b5-423b-bd85-941d769014d5",
+		"year": "2020",
+		"color": "black",
+		"brand": "Honda",
+		"isAvailable": true,
+		"reservationHistory": []
+	}
+]
+```
+
+#
+
