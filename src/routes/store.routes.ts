@@ -19,6 +19,8 @@ const storeRoutes = () => {
     route.patch("/:store_id", verifyTokenMiddleware, verifyAdmMiddleware, validateSchemaMiddleware(updateStoreSchema), StoreController.updateStoreController)
     route.delete("/:store_id", verifyTokenMiddleware, verifyAdmMiddleware, StoreController.deleteStoreController)
 
+    route.patch("/:store_id/:user_id", )
+
     return route
 }
 

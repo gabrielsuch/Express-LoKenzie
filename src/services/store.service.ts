@@ -1,6 +1,6 @@
 import AppDataSource from "../data-source"
 import {Request} from "express"
-import { Store } from "../entities"
+import { Store, User } from "../entities"
 
 class StoreService {
     getAllStoreService = async () => {
@@ -62,6 +62,28 @@ class StoreService {
         await storeRepository.delete(req.params.store_id)
         
         return {status: 200, message: {message: "Store Deleted"}}
+    }
+
+    addWorkerToStore = async ( req: Request ) => {
+        const storeRepository = AppDataSource.getRepository(Store)
+        const userRepository = AppDataSource.getRepository(User)
+
+        const findStore = await storeRepository.findOneBy({id: req.params.store_id})
+        const findUser = await userRepository.findOneBy({id: req.params.user_id})
+
+        if(!findStore) {
+            return {status: 404, message: {error: "Store not found"}}
+        }
+
+        if(!findUser) {
+            return {status: 404, message: {error: "User not found"}}
+        }
+
+        findStore.employees = [...findStore.employees, findUser]
+
+        await storeRepository.update(req.params.store_id, findStore)
+
+        return {status: 200, message: findStore}
     }
 }
 
