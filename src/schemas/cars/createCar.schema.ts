@@ -6,7 +6,7 @@ const createCarSchema = yup.object().shape({
   color: yup.string().required(),
   brand: yup.string().required(),
   isAvailable: yup.boolean().optional(),
-  group: yup.string().required(),
+  group: yup.string().optional(),
   stockedAt: yup.string().required(),
 });
 

@@ -87,6 +87,15 @@ class CarGroupService {
 
       const car = await carRepo.findOneBy({ id: carList[i] });
 
+      for (let j = 0; j < group.cars.length; j++) {
+        if (car.id === group.cars[j].id) {
+          return {
+            status: 409,
+            message: { message: `Car ${carList[i]} already in the group` },
+          };
+        }
+      }
+
       if (!car) {
         return {
           status: 404,
