@@ -2,19 +2,18 @@ import transport from "../config/mailer.config";
 import dotenv from "dotenv";
 import path from "path";
 import hbs from "nodemailer-express-handlebars";
-import { User } from "../entities";
+import { Car, User } from "../entities";
 import { Request } from "express";
 
 dotenv.config();
 
 class mailerService {
-	successReservationMail = (req:Request, user: User) => {
+	successReservationMail = (req: Request, user: User, car: Car) => {
 		const startDate = new Date(req.validated["startDate"])
-		const endDate =  new Date(req.validated["endDate"])
+		const endDate = new Date(req.validated["endDate"])
 
-		const serializerDate = (date: Date) =>{
-
-			return `${date.getDate()}/${(date.getMonth() + 1)}/${date.getFullYear()}`
+		const serializerDate = (date: Date) => {
+			return `${(date.getMonth() + 1)}/${date.getDate()}/${date.getFullYear()}`
 		}
 
 		const handlebarOptions = {
@@ -33,10 +32,11 @@ class mailerService {
 			subject: "Teste de erro",
 			template: "email",
 			context: {
-				client: user.name,
-				car: "car",
-				startDate: serializerDate(startDate) ,
-				endDate: serializerDate(endDate) ,
+				client: user.name.toUpperCase(),
+				plate: car.plate,
+				brand: car.brand,
+				startDate: serializerDate(startDate),
+				endDate: serializerDate(endDate),
 			},
 		};
 		transport.sendMail(mailOptions, (err) => {
