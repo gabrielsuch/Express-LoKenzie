@@ -1,7 +1,5 @@
 ## Link do Deploy: https://lokenzie-api.herokuapp.com
 
-#
-
 # **Users**
 
 # ***Criação de um usuário***
