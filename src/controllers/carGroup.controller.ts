@@ -32,6 +32,12 @@ class CarGroupController {
 
     return res.status(group.status).json(group.message);
   };
+
+  addCarOnGroupController = async (req: Request, res: Response) => {
+    const service = await CarGroupService.addCarOnGroupService(req);
+
+    return res.status(service.status).json(service.message);
+  };
 }
 
 export default new CarGroupController();
