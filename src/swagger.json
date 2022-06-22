@@ -1,0 +1,342 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "LoKenzie",
+      "description": "Documentação da API da LoKenzie",
+      "version": "1.0.1"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000/api-documentation"
+      }
+    ],
+    "paths": {
+        "/users/register": {
+            "post": {
+                "description": "Rota responsável pela Criação de um usuário",
+                "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/CreateUser"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "email": "jose@mail.com",
+                                        "password": "123456",
+                                        "name": "jose"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "email": "jose@mail.com",
+                                        "name": "jose",
+                                        "id": "ed261d3e-957c-42b3-94d8-6167f30c6b87",
+                                        "createdAt": "2022-06-20T14:52:23.462Z",
+                                        "updatedAt": "2022-06-20T14:52:23.462Z",
+                                        "isAdm": false
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "error": "Email already exists"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/login": {
+            "post": {
+                "description": "Rota responsável para realizar o Login do usuário",
+                "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/Login"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "email": "jose@mail.com",
+	                                    "password": "123456"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impvc2VAbWFpbC5jb20iLCJpYXQiOjE2NTU3Mzc3NTMsImV4cCI6MTY1NTgyNDE1M30.LqycZhSJJrkt_vL0zu_U1NFdelm4ShIi-YWk8rCaBFs"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "error": "Email or Password doesn't matches"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "error": "Email doesn't exists"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "description": "Rota responsável por retornar todos os usuários",
+                "tags": ["Users"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "example": [
+                                        {
+                                            "id": "45d5f40a-3c8d-4e41-bdb1-8c20ababc616",
+                                            "name": "kenzie",
+                                            "email": "kenzie@mail.com",
+                                            "createdAt": "2022-06-15T13:08:58.537Z",
+                                            "updatedAt": "2022-06-15T13:08:58.537Z",
+                                            "isAdm": true
+                                        },
+                                        {
+                                            "id": "ed261d3e-957c-42b3-94d8-6167f30c6b87",
+                                            "name": "jose",
+                                            "email": "jose@mail.com",
+                                            "createdAt": "2022-06-20T14:52:23.462Z",
+                                            "updatedAt": "2022-06-20T14:52:23.462Z",
+                                            "isAdm": false
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "error": "Missing Admin Permission"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/:id": {
+            "patch": {
+                "description": "Rota responsável por atualizar um usuário",
+                "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/UpdateUser"
+                            },
+                            "example": {
+                                "name": "Osvaldo",
+                                "email": "osvaldo@mail.com"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "id": "9db0d62c-b49b-42fe-9cd1-851b8c720fcd",
+                                        "name": "Osvaldo",
+                                        "email": "osvaldo@mail.com",
+                                        "createdAt": "2022-06-20T15:02:54.749Z",
+                                        "updatedAt": "2022-06-20T15:34:17.060Z",
+                                        "isAdm": false
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "error": "Cannot update other user"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "error": "User not found"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Rota responsável por Deletar um usuário",
+                "tags": ["Users"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "message": "User Deleted"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "error": "Cannot delete other user"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "error": "User not found"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    },
+    "components": {
+        "schemas": {
+            "CreateUser": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UpdateUser": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "isAdm": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "Login": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+} 
