@@ -13,7 +13,7 @@ class mailerService {
 		const endDate = new Date(req.validated["endDate"])
 
 		const serializerDate = (date: Date) => {
-			return `${(date.getMonth() + 1)}/${date.getDate()}/${date.getFullYear()}`
+			return `${date.getDate()}/${(date.getMonth() + 1)}/${date.getFullYear()}`
 		}
 
 		const handlebarOptions = {
@@ -29,7 +29,7 @@ class mailerService {
 		const mailOptions = {
 			from: process.env.ADMIN_EMAIL,
 			to: user.email,
-			subject: "Teste de erro",
+			subject: "Carro alugado com sucesso!",
 			template: "email",
 			context: {
 				client: user.name.toUpperCase(),
