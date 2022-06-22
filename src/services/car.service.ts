@@ -2,6 +2,7 @@ import { Request } from "express";
 
 import AppDataSource from "../data-source";
 import { Car, CarGroup } from "../entities";
+import { Store } from "../entities";
 
 class CarService {
   getAllCarsService = async () => {
@@ -37,14 +38,28 @@ class CarService {
     });
 
     if (carAlreadyExist) {
-      return { status: 409, message: { error: "Car already exists." } };
+      return { status: 409, message: { error: "Car already exists" } };
     }
+
+    const storeRepository = AppDataSource.getRepository(Store);
+    const carGroupRepository = AppDataSource.getRepository(CarGroup);
+
+    const carStockedAt = await storeRepository.findOneBy({
+      id: body.stockedAt,
+    });
+
+    const carGroup = await carGroupRepository.findOneBy({
+      id: body.group,
+    });
+
     const car = new Car();
     car.plate = body.plate;
     car.year = body.year;
     car.color = body.color;
     car.brand = body.brand;
     car.isAvailable = body.isAvailable;
+    car.group = carGroup;
+    car.stockedAt = carStockedAt;
     //Fazer uma validação/serialização
     carRepository.create(car);
     await carRepository.save(car);
@@ -66,8 +81,6 @@ class CarService {
     const carUpdated = await carRepository.findOneBy({
       id: req.params.car_id,
     });
-
-    console.log(carUpdated);
 
     return { status: 200, message: carUpdated };
   };

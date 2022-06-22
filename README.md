@@ -194,6 +194,8 @@
 
 ### Usuário Admin pode atualizar qualquer usuário.
 ### Usuário Não Admin só pode atualizar a si mesmo.
+### Usuário Admin pode atualizar as seguintes chaves: [name, email, password, isAdm]
+### Usuário Não Admin só pode atualizar as seguintes chaves: [name, email, password]
 
 #
 
@@ -428,6 +430,10 @@
 
 # ***Atualizando uma Store***
 
+### Usuário pode atualizar as seguintes chaves: [address, quantity]
+
+#
+
 ### `PATCH /stores/:id - Sem Autenticação Bearer Token`
 
 <br>
@@ -528,5 +534,664 @@
 ```json
 {
 	"error": "Store not found"
+}
+```
+
+#
+
+# **Cars**
+
+# ***Criação de um Carro***
+
+### `POST /cars/register - Sem Autenticação Bearer Token`
+
+<br>
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": "Invalid signature"
+}
+```
+
+### `Status 403 - Forbidden:`
+
+```json
+{
+	"error": "Missing Authorization Token"
+}
+```
+
+#
+
+### `POST /cars/register - Com Autenticação Bearer Token - Formato da Requisição:`
+
+```json
+{
+	"plate": "AAA0B11",
+	"year": "2020",
+	"color": "gray",
+	"brand": "Volvo",
+	"isAvailable": true
+}
+```
+
+### `Status 201 - Created:`
+
+```json
+{
+	"plate": "AAA0B11",
+	"year": "2020",
+	"color": "gray",
+	"brand": "Volvo",
+	"isAvailable": true,
+	"id": "df9cd676-13ef-4bff-bd9f-6d6962a6188e"
+}
+```
+
+### `Status 401 - Unauthorized:`
+
+```json
+{
+	"error": "Missing Admin Permission"
+}
+```
+
+### `Status 409 - Conflict:`
+
+```json
+{
+	"error": "Car already exists"
+}
+```
+
+#
+
+### `POST /cars/register - Chaves Incorretas - Formato da Requisição:`
+
+```json
+{
+	"year": "2020",
+	"color": "gray",
+	"brand": "Volvo",
+	"isAvailable": true
+}
+```
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": [
+		"plate is a required field"
+	]
+}
+```
+
+#
+
+# ***Obtendo dados de Carros***
+
+### `GET /cars - Não necessita de Autenticação - Formato da Requisição:`
+
+<br>
+
+### `Status 200 - OK:`
+
+```json
+[
+	{
+		"id": "25c57a1e-bfb0-440e-bd62-a9dab51effca",
+		"year": "2021",
+		"color": "white",
+		"brand": "Renault",
+		"isAvailable": true,
+		"reservationHistory": []
+	},
+	{
+		"id": "df9cd676-13ef-4bff-bd9f-6d6962a6188e",
+		"year": "2020",
+		"color": "gray",
+		"brand": "Volvo",
+		"isAvailable": true,
+		"reservationHistory": []
+	},
+	{
+		"id": "7f545f35-33b5-423b-bd85-941d769014d5",
+		"year": "2020",
+		"color": "black",
+		"brand": "Honda",
+		"isAvailable": true,
+		"reservationHistory": []
+	}
+]
+```
+
+#
+
+# ***Obtendo dados de um único Carro***
+
+### `GET /cars/:id - Não necessita de Autenticação - Formato da Requisição:`
+
+<br>
+
+### `Status 200 - OK:`
+
+```json
+{
+	"id": "df9cd676-13ef-4bff-bd9f-6d6962a6188e",
+	"plate": "AAA0B11",
+	"year": "2020",
+	"color": "gray",
+	"brand": "Volvo",
+	"isAvailable": true,
+	"reservationHistory": []
+}
+```
+
+
+
+### `Status 404 - Not Found`:
+
+```json
+{
+	"error": "Car not found"
+}
+```
+
+#
+
+# ***Atualizando um Carro***
+
+### Usuário pode atualizar as seguintes chaves: [plate, year, color, brand, isAvailable]
+
+# 
+
+### `PATCH /cars/:id - Sem Autenticação Bearer Token - Formato da Requisição:`
+
+<br>
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": "Invalid signature"
+}
+```
+
+### `Status 403 - Forbidden:`
+
+```json
+{
+	"error": "Missing Authorization Token"
+}
+```
+
+### `PATCH /cars/:id - Com Autenticação Bearer Token - Formato da Requisição:`
+
+```json
+{
+	"color": "red",
+	"brand": "Chevrolet"
+}
+```
+
+### `Status 200 - OK:`
+
+```json
+{
+	"id": "df9cd676-13ef-4bff-bd9f-6d6962a6188e",
+	"plate": "AAA0B11",
+	"year": "2020",
+	"color": "red",
+	"brand": "Chevrolet",
+	"isAvailable": true,
+	"reservationHistory": []
+}
+```
+
+### `Status 401 - Unauthorized:`
+
+```json
+{
+	"error": "Missing Admin Permission"
+}
+```
+
+### `Status 404 - Not Found`
+
+```json
+{
+	"error": "Car not found"
+}
+```
+
+#
+
+# ***Deletando um Carro***
+
+### `DELETE /cars/:id - Sem Autenticação Bearer Token - Formato da Requisição:`
+
+<br>
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": "Invalid signature"
+}
+```
+
+### `Status 403 - Forbidden:`
+
+```json
+{
+	"error": "Missing Authorization Token"
+}
+```
+
+### `DELETE /cars/:id - Com Autenticação Bearer Token - Formato da Requisição:`
+
+<br>
+
+### `Status 200 - OK:`
+
+```json
+{
+	"error": "Car Deleted"
+}
+```
+
+### `Status 401 - Unauthorized:`
+
+```json
+{
+	"error": "Missing Admin Permission"
+}
+```
+
+### `Status 404 - Not Found:`
+
+```json
+{
+	"error": "Car not found"
+}
+```
+
+#
+
+# **Cars Groups**
+
+# ***Criação de um Car Group***
+
+### `POST /cars/groups - Sem Autenticação Bearer Token - Formato da Requisição:`
+
+<br>
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": "Invalid signature"
+}
+```
+
+### `Status 403 - Forbidden:`
+
+```json
+{
+	"error": "Missing Authorization Token"
+}
+```
+
+#
+
+### `POST /cars/groups - Com Autenticação Bearer Token - Formato da Requisição:`
+
+<br>
+
+```json
+{
+	"description": "Descrição",
+	"price": 1100.00
+}
+```
+
+### `Status 201 - Created:`
+
+```json
+{
+	"description": "Descrição",
+	"price": 1100,
+	"quantity": 0,
+	"id": "d863a44a-dbc6-437c-96f0-0bcf0436bdbe"
+}
+```
+
+### `Status 401 - Unauthorized:`
+
+```json
+{
+	"error": "Missing Admin Permission"
+}
+```
+
+#
+
+### `POST /cars/groups - Chaves Incorretas - Formato da Requisição:`
+
+```json
+{
+	"description": "Descrição"
+}
+```
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": [
+		"price is a required field"
+	]
+}
+```
+
+#
+
+# ***Obtendo dados de Cars Groups***
+
+### `GET /cars/groups - Não necessita de Autenticação - Formato da Requisição:`
+
+<br>
+
+### `Status 200 - OK:`
+
+```json
+[
+	{
+		"id": "d863a44a-dbc6-437c-96f0-0bcf0436bdbe",
+		"description": "Descrição",
+		"quantity": 0,
+		"price": 1100,
+		"cars": []
+	}
+]
+```
+
+#
+
+# ***Obtendo dados de um único Car Group***
+
+### `GET /cars/groups/:id - Não necessita de Autenticação - Formato da Requisição:`
+
+<br>
+
+### `Status 200 - OK:`
+
+```json
+{
+	"id": "d863a44a-dbc6-437c-96f0-0bcf0436bdbe",
+	"description": "Descrição",
+	"quantity": 0,
+	"price": 1100
+}
+```
+
+### `Status 400 - Not Found:`
+
+```json
+{
+	"error": "Group Not Found"
+}
+```
+
+#
+
+# ***Atualização de um Car Group***
+
+### Usuário Admin pode atualizar as seguintes chaves: [description, price]
+
+#
+
+### `PATCH /cars/groups/:id - Sem Autenticação Bearer Token - Formato da Requisição:`
+
+<br>
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": "Invalid signature"
+}
+```
+
+### `Status 403 - Forbidden:`
+
+```json
+{
+	"error": "Missing Authorization Token"
+}
+```
+
+#
+
+### `PATCH /cars/groups/:id - Com Autenticação Bearer Token - Formato da Requisição:`
+
+```json
+{
+	"price": 4592
+}
+```
+
+### `Status 200 - OK:`
+
+```json
+{
+	"id": "a6f724b5-b66e-48ec-837e-3a28f9fa94e7",
+	"description": "Descrição",
+	"quantity": 0,
+	"price": 4592
+}
+```
+
+### `Status 401 - Unauthorized:`
+
+```json
+{
+	"error": "Missing Admin Permission"
+}
+```
+
+### `Status 404 - Not Found:`
+
+```json
+{
+	"error": "Group not found"
+}
+```
+
+#
+
+# ***Deletando um Car Group***
+
+### `DELETE /cars/groups/:id - Sem Autenticação Bearer Token - Formato da Requisição:`
+
+<br>
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": "Invalid signature"
+}
+```
+
+### `Status 403 - Forbidden:`
+
+```json
+{
+	"error": "Missing Authorization Token"
+}
+```
+
+#
+
+### `DELETE /cars/groups/:id - Com Autenticação Bearer Token - Formato da Requisição:`
+
+<br>
+
+### `Status 200 - OK:`
+
+```json
+{
+	"message": "Deleted"
+}
+```
+
+### `Status 401 - Unauthorized:`
+
+```json
+{
+	"error": "Missing Admin Permission"
+}
+```
+
+### `Status 404 - Not Found:`
+
+```json
+{
+	"error": "Group not found"
+}
+```
+
+#
+
+# **Reservation**
+
+# ***Realizando uma Reserva de Carro***
+
+### `POST /reservation/:id - Sem Autenticação Bearer Token - Formato da Requisição:`
+
+<br>
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": "Invalid signature"
+}
+```
+
+### `Status 403 - Forbidden:`
+
+```json
+{
+	"error": "Missing Authorization Token"
+}
+```
+
+#
+
+### `POST /reservation/:id - Com Autenticação Bearer Token - Formato da Requisição:`
+
+```json
+{
+	"days": 10,
+	"startDate": "2022/05/28",
+	"endDate": "2022/05/30"
+}
+```
+
+### `Status 201 - Created:`
+
+```json
+{
+	"message": "Reservation made"
+}
+```
+
+### `Status 404 - Not Found:`
+
+```json
+{
+	"error": "Car not found"
+}
+```
+
+### `Status 409 - Conflict:`
+
+```json
+{
+	"error": "Car not avaliable"
+}
+```
+
+# 
+
+### `POST /reservation/:id - Chaves Incorretas - Formato da Requisição:`
+
+```json
+{
+	"days": 10,
+	"endDate": "2022/05/30"
+}
+```
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": [
+		"startDate is a required field"
+	]
+}
+```
+
+#
+
+### `POST /cars/groups/add/:group_id - Sem Autenticação Bearer Token - Formato da Requisição:`
+
+<br>
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": "Invalid signature"
+}
+```
+
+### `Status 403 - Forbidden:`
+
+```json
+{
+	"error": "Missing Authorization Token"
+}
+```
+
+### `POST /cars/groups/add/:group_id - Com Autenticação Bearer Token - Formato da Requisição:`
+
+```json
+{
+	"cars": [
+		"25c57a1e-bfb0-440e-bd62-a9dab51effca", "7f545f35-33b5-423b-bd85-941d769014d5"
+	]
+}
+```
+
+### `Status 200 - OK:`
+
+```json
+{
+	"message": "Car(s) added"
+}
+```
+
+### `Status 404 - Not Found:`
+
+```json
+{
+	"message": "Car 'UUID' not found"
 }
 ```

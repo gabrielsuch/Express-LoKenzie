@@ -13,7 +13,7 @@ class CarGroupService {
 
   getGroupService = async (req: Request) => {
     const groupRepo = AppDataSource.getRepository(CarGroup);
-    const group = groupRepo.findOneBy({ id: req.params.group_id });
+    const group = await groupRepo.findOneBy({ id: req.params.group_id });
 
     if (!group) {
       return { status: 404, message: { error: "Group Not Found" } };
@@ -39,7 +39,7 @@ class CarGroupService {
   patchGroupService = async (req: Request) => {
     const groupRepo = AppDataSource.getRepository(CarGroup);
 
-    const group = groupRepo.findOneBy({ id: req.params.group_id });
+    const group = await groupRepo.findOneBy({ id: req.params.group_id });
 
     if (!group) {
       return { status: 404, message: { error: "Group not found" } };
@@ -64,7 +64,7 @@ class CarGroupService {
 
     groupRepo.delete(req.params.group_id);
 
-    return { status: 200, message: { message: "Deleted" } };
+    return { status: 200, message: { message: "Car Group Deleted" } };
   };
 
   addCarOnGroupService = async (req: Request) => {
@@ -105,7 +105,7 @@ class CarGroupService {
       quantity: group.quantity + carList.length,
     });
 
-    return { status: 200, message: { messsage: "Car(s) added" } };
+    return { status: 200, message: { message: "Car(s) added" } };
   };
 }
 
