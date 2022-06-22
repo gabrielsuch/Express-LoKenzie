@@ -570,7 +570,7 @@
 ```json
 {
 	"plate": "AAA0B11",
-	"year": "2020",
+	"year": 2020,
 	"color": "gray",
 	"brand": "Volvo",
 	"isAvailable": true
@@ -582,7 +582,7 @@
 ```json
 {
 	"plate": "AAA0B11",
-	"year": "2020",
+	"year": 2020,
 	"color": "gray",
 	"brand": "Volvo",
 	"isAvailable": true,
@@ -728,6 +728,8 @@
 }
 ```
 
+#
+
 ### `PATCH /cars/:id - Com Autenticação Bearer Token - Formato da Requisição:`
 
 ```json
@@ -791,6 +793,8 @@
 }
 ```
 
+#
+
 ### `DELETE /cars/:id - Com Autenticação Bearer Token - Formato da Requisição:`
 
 <br>
@@ -799,7 +803,7 @@
 
 ```json
 {
-	"error": "Car Deleted"
+	"message": "Car Deleted"
 }
 ```
 
@@ -825,7 +829,7 @@
 
 # ***Criação de um Car Group***
 
-### `POST /cars/groups - Sem Autenticação Bearer Token - Formato da Requisição:`
+### `POST /cars/groups/register - Sem Autenticação Bearer Token - Formato da Requisição:`
 
 <br>
 
@@ -847,7 +851,7 @@
 
 #
 
-### `POST /cars/groups - Com Autenticação Bearer Token - Formato da Requisição:`
+### `POST /cars/groups/register - Com Autenticação Bearer Token - Formato da Requisição:`
 
 <br>
 
@@ -879,7 +883,7 @@
 
 #
 
-### `POST /cars/groups - Chaves Incorretas - Formato da Requisição:`
+### `POST /cars/groups/register - Chaves Incorretas - Formato da Requisição:`
 
 ```json
 {
@@ -896,6 +900,57 @@
 	]
 }
 ```
+
+#
+
+### `POST /cars/groups/add/:group_id - Sem Autenticação Bearer Token - Formato da Requisição:`
+
+<br>
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": "Invalid signature"
+}
+```
+
+### `Status 403 - Forbidden:`
+
+```json
+{
+	"error": "Missing Authorization Token"
+}
+```
+
+#
+
+### `POST /cars/groups/add/:group_id - Com Autenticação Bearer Token - Formato da Requisição:`
+
+```json
+{
+	"cars": [
+		"25c57a1e-bfb0-440e-bd62-a9dab51effca", "7f545f35-33b5-423b-bd85-941d769014d5"
+	]
+}
+```
+
+### `Status 200 - OK:`
+
+```json
+{
+	"message": "Car(s) added"
+}
+```
+
+### `Status 404 - Not Found:`
+
+```json
+{
+	"message": "Car 'UUID' not found"
+}
+```
+
 
 #
 
@@ -1149,53 +1204,3 @@
 ```
 
 #
-
-### `POST /cars/groups/add/:group_id - Sem Autenticação Bearer Token - Formato da Requisição:`
-
-<br>
-
-### `Status 400 - Bad Request:`
-
-```json
-{
-	"error": "Invalid signature"
-}
-```
-
-### `Status 403 - Forbidden:`
-
-```json
-{
-	"error": "Missing Authorization Token"
-}
-```
-
-### `POST /cars/groups/add/:group_id - Com Autenticação Bearer Token - Formato da Requisição:`
-
-```json
-{
-	"cars": [
-		"25c57a1e-bfb0-440e-bd62-a9dab51effca", "7f545f35-33b5-423b-bd85-941d769014d5"
-	]
-}
-```
-
-### `Status 200 - OK:`
-
-```json
-{
-	"message": "Car(s) added"
-}
-```
-
-### `Status 404 - Not Found:`
-
-```json
-{
-	"message": "Car 'UUID' not found"
-}
-<<<<<<< HEAD
-```
-=======
-```
->>>>>>> 8be6400650c0ef88d80346e09000486db4d6308e
