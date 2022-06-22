@@ -34,7 +34,7 @@ export class Car {
   })
   reservationHistory: UserCarReservation[];
 
-  @ManyToOne(() => CarGroup, (group) => group.cars)
+  @ManyToOne(() => CarGroup, (group) => group.cars, { lazy: true })
   group: CarGroup;
 
   @ManyToOne(() => Store, (store) => store.stock)
