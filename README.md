@@ -1034,7 +1034,8 @@
 	"description": "Descrição",
 	"price": 1100,
 	"quantity": 0,
-	"id": "d863a44a-dbc6-437c-96f0-0bcf0436bdbe"
+	"id": "d863a44a-dbc6-437c-96f0-0bcf0436bdbe",
+	"cars": []
 }
 ```
 
@@ -1211,7 +1212,8 @@
 	"id": "a6f724b5-b66e-48ec-837e-3a28f9fa94e7",
 	"description": "Descrição",
 	"quantity": 0,
-	"price": 4592
+	"price": 4592,
+	"cars": []
 }
 ```
 
