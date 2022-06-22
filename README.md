@@ -536,6 +536,151 @@
 	"error": "Store not found"
 }
 ```
+#
+
+# ***Relacionamento entre Store e User***
+
+### `POST /stores/worker/:store_id - Sem Autenticação Bearer Token`
+
+<br>
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": "Invalid signature"
+}
+```
+
+### `Status 403 - Forbidden:`
+
+```json
+{
+	"error": "Missing Authorization Token"
+}
+```
+
+#
+
+### `POST /stores/worker/:store_id - Com Autenticação Bearer Token - Formato da Requisição:`
+
+```json
+{
+	"email": "jose@mail.com"
+}
+```
+
+### `Status 200 - OK:`
+
+```json
+{
+	"id": "ddf332df-81b4-4ec1-9b24-1ff31d6449d2",
+	"address": "Rua Fulano Ciclano Beltrano",
+	"quantity": 20,
+	"employees": [
+		{
+			"id": "ed261d3e-957c-42b3-94d8-6167f30c6b87",
+			"name": "jose",
+			"email": "jose@mail.com",
+			"createdAt": "2022-06-20T14:52:23.462Z",
+			"updatedAt": "2022-06-20T14:52:23.462Z",
+			"isAdm": false,
+			"password": "$2b$10$9DJ1ALTqEgdaFQC6cfZR4eWW3/WepSUJ1aatseJQG5jQV3Dxz/s6q",
+			"reservationHistory": [
+				{
+					"id": "fa81c5c1-c728-427e-9752-18143e34e77e",
+					"days": 5,
+					"startDate": "2022-07-10",
+					"endDate": "2022-07-15"
+				}
+			]
+		}
+	]
+}
+```
+
+### `Status 401 - Unauthorized:`
+
+```json
+{
+	"error": "Missing Admin Permission"
+}
+```
+
+### `Status 404 - Not Found:`
+
+```json
+{
+	"error": "User not found"
+}
+"or"
+{
+	"error": "Store not found"
+}
+```
+
+#
+
+### `POST /stores/remove/:store_id - Sem Autenticação Bearer Token`
+
+<br>
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": "Invalid signature"
+}
+```
+
+### `Status 403 - Forbidden:`
+
+```json
+{
+	"error": "Missing Authorization Token"
+}
+```
+
+#
+
+### `POST /stores/remove/:store_id - Com Autenticação Bearer Token - Formato da Requisição:`
+
+```json
+{
+	"email": "jose@mail.com"
+}
+```
+
+### `Status 200 - OK:`
+
+```json
+{
+	"id": "ddf332df-81b4-4ec1-9b24-1ff31d6449d2",
+	"address": "Rua Fulano Ciclano Beltrano",
+	"quantity": 20,
+	"employees": []
+}
+```
+
+### `Status 401 - Unauthorized:`
+
+```json
+{
+	"error": "Missing Admin Permission"
+}
+```
+
+### `Status 404 - Not Found:`
+
+```json
+{
+	"error": "User not found"
+}
+"or"
+{
+	"error": "Store not found"
+}
+```
 
 #
 
@@ -840,9 +985,9 @@
 
 #
 
-# **Cars Groups**
+# **Groups**
 
-# ***Criação de um Car Group***
+# ***Criação de um Grupo***
 
 ### `POST /cars/groups/register - Sem Autenticação Bearer Token - Formato da Requisição:`
 
@@ -969,7 +1114,7 @@
 
 #
 
-# ***Obtendo dados de Cars Groups***
+# ***Obtendo dados de Grupos***
 
 ### `GET /cars/groups - Não necessita de Autenticação - Formato da Requisição:`
 
@@ -991,7 +1136,7 @@
 
 #
 
-# ***Obtendo dados de um único Car Group***
+# ***Obtendo dados de um único Grupo***
 
 ### `GET /cars/groups/:id - Não necessita de Autenticação - Formato da Requisição:`
 
@@ -1018,7 +1163,7 @@
 
 #
 
-# ***Atualização de um Car Group***
+# ***Atualização de um Grupo***
 
 ### Usuário Admin pode atualizar as seguintes chaves: [description, price]
 
@@ -1083,7 +1228,7 @@
 
 #
 
-# ***Deletando um Car Group***
+# ***Deletando um Grupo***
 
 ### `DELETE /cars/groups/:id - Sem Autenticação Bearer Token - Formato da Requisição:`
 

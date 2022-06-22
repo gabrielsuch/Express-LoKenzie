@@ -103,8 +103,6 @@ class StoreService {
 
         findStore.employees = findStore.employees.filter( employee => employee.email !== req.body.email)
 
-        console.log(findStore.employees)
-
         await storeRepository.save(findStore)
 
         return {status: 200, message: findStore}
