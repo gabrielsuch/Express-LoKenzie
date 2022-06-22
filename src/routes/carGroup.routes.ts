@@ -15,8 +15,8 @@ const route = Router();
 const carGroupRoutes = () => {
   route.post(
     "/add/:group_id",
-    //verifyTokenMiddleware,
-    //verifyAdmMiddleware,
+    verifyTokenMiddleware,
+    verifyAdmMiddleware,
     validateSchemaMiddleware(addOnGroupSchema),
     CarGroupController.addCarOnGroupController
   );
