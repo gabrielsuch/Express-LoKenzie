@@ -79,11 +79,33 @@ class StoreService {
             return {status: 404, message: {error: "User not found"}}
         }
 
-        const employees = findStore.employees
-        const newEmployees = [...employees, findUser]
+        findStore.employees = [...findStore.employees, findUser]
 
-        await userRepository.update(findUser.id, {employedAt: findStore})
-        await storeRepository.update(req.params.store_id, {employees: newEmployees})
+        await storeRepository.save(findStore)
+
+        return {status: 200, message: findStore}
+    }
+
+    removeWorkerFromStore =async ( req: Request ) => {
+        const storeRepository = AppDataSource.getRepository(Store)
+        const userRepository = AppDataSource.getRepository(User)
+
+        const findStore = await storeRepository.findOneBy({id: req.params.store_id})
+        const findUser = await userRepository.findOneBy({email: req.body.email})
+
+        if(!findStore) {
+            return {status: 404, message: {error: "Store not found"}}
+        }
+
+        if(!findUser) {
+            return {status: 404, message: {error: "User not found"}}
+        }
+
+        findStore.employees = findStore.employees.filter( employee => employee.email !== req.body.email)
+
+        console.log(findStore.employees)
+
+        await storeRepository.save(findStore)
 
         return {status: 200, message: findStore}
     }
