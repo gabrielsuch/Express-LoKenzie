@@ -12,9 +12,9 @@ class mailerService {
     const startDate = new Date(req.validated["startDate"]);
     const endDate = new Date(req.validated["endDate"]);
 
-    const serializerDate = (date: Date) => {
-      return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-    };
+		const serializerDate = (date: Date) => {
+			return `${date.getDate()}/${(date.getMonth() + 1)}/${date.getFullYear()}`
+		}
 
     const handlebarOptions = {
       viewEngine: {
@@ -26,25 +26,25 @@ class mailerService {
 
     transport.use("compile", hbs(handlebarOptions));
 
-    const mailOptions = {
-      from: process.env.ADMIN_EMAIL,
-      to: user.email,
-      subject: "Teste de erro",
-      template: "email",
-      context: {
-        client: user.name.toUpperCase(),
-        plate: car.plate,
-        brand: car.brand,
-        startDate: serializerDate(startDate),
-        endDate: serializerDate(endDate),
-      },
-    };
-    transport.sendMail(mailOptions, (err) => {
-      if (err) {
-        return { status: 424, message: { error: "Email could not be sent." } };
-      }
-    });
-  };
+		const mailOptions = {
+			from: process.env.ADMIN_EMAIL,
+			to: user.email,
+			subject: "Carro alugado com sucesso!",
+			template: "email",
+			context: {
+				client: user.name.toUpperCase(),
+				plate: car.plate,
+				brand: car.brand,
+				startDate: serializerDate(startDate),
+				endDate: serializerDate(endDate),
+			},
+		};
+		transport.sendMail(mailOptions, (err) => {
+			if (err) {
+				return { status: 424, message: { error: "Email could not be sent." } };
+			}
+		});
+	};
 }
 
 export default new mailerService();

@@ -55,10 +55,6 @@ class UserService {
             email: req.decoded
         })
 
-        if(!findUser) {
-            return {status: 404, message: {error: "User not found"}}
-        }
-
         if(!loggedUser) {
             return {status: 404, message: {error: "Current user doesn't exists"}}
         }
@@ -98,9 +94,6 @@ class UserService {
             email: req.decoded
         })
 
-        if(!findUser) {
-            return {status: 404, message: {error: "User not found"}}
-        }
 
         if(!loggedUser) {
             return {status: 404, message: {error: "Current user doesn't exists"}}
