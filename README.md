@@ -167,7 +167,8 @@
 		"email": "kenzie@mail.com",
 		"createdAt": "2022-06-15T13:08:58.537Z",
 		"updatedAt": "2022-06-15T13:08:58.537Z",
-		"isAdm": true
+		"isAdm": true,
+		"reservationHistory": []
 	},
 	{
 		"id": "ed261d3e-957c-42b3-94d8-6167f30c6b87",
@@ -175,7 +176,8 @@
 		"email": "jose@mail.com",
 		"createdAt": "2022-06-20T14:52:23.462Z",
 		"updatedAt": "2022-06-20T14:52:23.462Z",
-		"isAdm": false
+		"isAdm": false,
+		"reservationHistory": []
 	}
 ]
 ```
@@ -416,12 +418,14 @@
 	{
 		"id": "a20fb0e5-3f6f-4472-997c-6fe600e0b534",
 		"address": "Rua Fulano",
-		"quantity": 55
+		"quantity": 55,
+		"employees": []
 	},
 	{
 		"id": "2da99070-22af-4980-a002-d01c20ba5a3c",
 		"address": "Rua Tal",
-		"quantity": 20
+		"quantity": 20,
+		"employees": []
 	}
 ]
 ```
@@ -471,7 +475,8 @@
 {
 	"id": "2da99070-22af-4980-a002-d01c20ba5a3c",
 	"address": "Rua Fulano Ciclano Beltrano",
-	"quantity": 20
+	"quantity": 20,
+	"employees": []
 }
 ```
 
@@ -1029,7 +1034,8 @@
 	"description": "Descrição",
 	"price": 1100,
 	"quantity": 0,
-	"id": "d863a44a-dbc6-437c-96f0-0bcf0436bdbe"
+	"id": "d863a44a-dbc6-437c-96f0-0bcf0436bdbe",
+	"cars": []
 }
 ```
 
@@ -1206,7 +1212,8 @@
 	"id": "a6f724b5-b66e-48ec-837e-3a28f9fa94e7",
 	"description": "Descrição",
 	"quantity": 0,
-	"price": 4592
+	"price": 4592,
+	"cars": []
 }
 ```
 

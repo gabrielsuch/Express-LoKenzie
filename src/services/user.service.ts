@@ -73,6 +73,10 @@ class UserService {
             req.validated.password = await bcrypt.hash(req.validated.password, 10)
         }
 
+        if(loggedUser && loggedUser.isAdm && !exists.includes("isAdm")) {
+            req.validated.isAdm = true
+        }
+
         await userRepository.update(req.params.user_id, req.validated)
 
         const newUser = await userRepository.findOneBy({
