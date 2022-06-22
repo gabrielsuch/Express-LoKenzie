@@ -20,7 +20,7 @@ class ReservationService {
     }
 
     if (carRequested.isAvailable === false) {
-      return { status: 409, message: { error: "Car not avaliable" } };
+      return { status: 409, message: { error: "Car not available" } };
     }
 
     const reservation = new UserCarReservation();

@@ -913,7 +913,8 @@
 		"id": "d863a44a-dbc6-437c-96f0-0bcf0436bdbe",
 		"description": "Descrição",
 		"quantity": 0,
-		"price": 1100
+		"price": 1100,
+		"cars": []
 	}
 ]
 ```
@@ -1148,3 +1149,49 @@
 ```
 
 #
+
+### `POST /cars/groups/add/:group_id - Sem Autenticação Bearer Token - Formato da Requisição:`
+
+<br>
+
+### `Status 400 - Bad Request:`
+
+```json
+{
+	"error": "Invalid signature"
+}
+```
+
+### `Status 403 - Forbidden:`
+
+```json
+{
+	"error": "Missing Authorization Token"
+}
+```
+
+### `POST /cars/groups/add/:group_id - Com Autenticação Bearer Token - Formato da Requisição:`
+
+```json
+{
+	"cars": [
+		"25c57a1e-bfb0-440e-bd62-a9dab51effca", "7f545f35-33b5-423b-bd85-941d769014d5"
+	]
+}
+```
+
+### `Status 200 - OK:`
+
+```json
+{
+	"message": "Car(s) added"
+}
+```
+
+### `Status 404 - Not Found:`
+
+```json
+{
+	"message": "Car 'UUID' not found"
+}
+```

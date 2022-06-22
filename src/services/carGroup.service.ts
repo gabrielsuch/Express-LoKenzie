@@ -105,7 +105,7 @@ class CarGroupService {
       quantity: group.quantity + carList.length,
     });
 
-    return { status: 200, message: { messsage: "Car(s) added" } };
+    return { status: 200, message: { message: "Car(s) added" } };
   };
 }
 
