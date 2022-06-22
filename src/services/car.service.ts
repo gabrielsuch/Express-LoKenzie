@@ -24,7 +24,7 @@ class CarService {
     });
 
     if (!car) {
-      return { status: 404, message: { error: "Car not found"} };
+      return { status: 404, message: { error: "Car not found" } };
     }
 
     return { status: 200, message: car };
@@ -67,8 +67,6 @@ class CarService {
       id: req.params.car_id,
     });
 
-    console.log(carUpdated);
-
     return { status: 200, message: carUpdated };
   };
 
@@ -84,7 +82,7 @@ class CarService {
 
     carRepository.delete(req.params.car_id);
 
-    return { status: 200, message: { message: "Car Deleted"} };
+    return { status: 200, message: { message: "Car Deleted" } };
   };
 }
 
