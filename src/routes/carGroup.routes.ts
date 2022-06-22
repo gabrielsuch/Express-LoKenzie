@@ -8,15 +8,24 @@ import verifyAdmMiddleware from "../middlewares/verifyAdm.middleware";
 
 import createGroupSchema from "../schemas/carGroup/createGroup.schema";
 import updateGroupSchema from "../schemas/carGroup/updateGroup.schema";
+import addOnGroupSchema from "../schemas/carGroup/addOnGroup.schema";
 
 const route = Router();
 
 const carGroupRoutes = () => {
+  route.post(
+    "/add/:group_id",
+    //verifyTokenMiddleware,
+    //verifyAdmMiddleware,
+    validateSchemaMiddleware(addOnGroupSchema),
+    CarGroupController.addCarOnGroupController
+  );
+
   route.get("", CarGroupController.getGroupsController);
   route.get("/:group_id", CarGroupController.getGroupController);
 
   route.post(
-    "",
+    "/register",
     verifyTokenMiddleware,
     verifyAdmMiddleware,
     validateSchemaMiddleware(createGroupSchema),
