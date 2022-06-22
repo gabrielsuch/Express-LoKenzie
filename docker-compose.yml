@@ -12,7 +12,7 @@ services:
       - 3000:3000
     depends_on:
       - pg
-    command: bash -c 'yarn typeorm migration:run -d src/data-source.ts && yarn dev'
+    command: bash -c 'yarn migration:run && yarn dev'
   pg:
     container_name: loKenzieDb
     image: postgres
