@@ -36,10 +36,6 @@ class StoreService {
             id: req.params.store_id
         })
 
-        if(!findStore) {
-            return {status: 404, message: {error: "Store not found"}}
-        }
-
         await storeRepository.update(req.params.store_id, req.body)
 
         const updatedStore = await storeRepository.findOneBy({
@@ -54,10 +50,6 @@ class StoreService {
         const findStore = await storeRepository.findOneBy({
             id: req.params.store_id
         })
-
-        if(!findStore) {
-            return {status: 404, message: {error: "Store not found"}}
-        }
 
         await storeRepository.delete(req.params.store_id)
         

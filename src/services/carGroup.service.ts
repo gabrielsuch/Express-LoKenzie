@@ -15,9 +15,6 @@ class CarGroupService {
     const groupRepo = AppDataSource.getRepository(CarGroup);
     const group = await groupRepo.findOneBy({ id: req.params.group_id });
 
-    if (!group) {
-      return { status: 404, message: { error: "Group Not Found" } };
-    }
 
     return { status: 200, message: group };
   };
@@ -41,10 +38,6 @@ class CarGroupService {
 
     const group = await groupRepo.findOneBy({ id: req.params.group_id });
 
-    if (!group) {
-      return { status: 404, message: { error: "Group not found" } };
-    }
-
     await groupRepo.update(req.params.group_id, req.body);
 
     const groupUpdated = await groupRepo.findOneBy({
@@ -57,10 +50,6 @@ class CarGroupService {
   deleteGroupService = async (req: Request) => {
     const groupRepo = AppDataSource.getRepository(CarGroup);
     const group = await groupRepo.findOneBy({ id: req.params.group_id });
-
-    if (!group) {
-      return { status: 404, message: { error: "Group not found" } };
-    }
 
     groupRepo.delete(req.params.group_id);
 
