@@ -573,7 +573,9 @@
 	"year": 2020,
 	"color": "gray",
 	"brand": "Volvo",
-	"isAvailable": true
+	"isAvailable": true,
+	"group": "2d2451cd-4e86-4cf4-a9e5-bdbdc0bb781b",
+	"stockedAt": "308b8d4d-024b-442f-8365-d980fd11594d"
 }
 ```
 
@@ -582,11 +584,24 @@
 ```json
 {
 	"plate": "AAA0B11",
-	"year": 2020,
+	"year": "2020",
 	"color": "gray",
 	"brand": "Volvo",
 	"isAvailable": true,
-	"id": "df9cd676-13ef-4bff-bd9f-6d6962a6188e"
+	"group": {
+		"id": "2d2451cd-4e86-4cf4-a9e5-bdbdc0bb781b",
+		"description": "Descrição",
+		"quantity": 3,
+		"price": 2000,
+		"cars": []
+	},
+	"stockedAt": {
+		"id": "308b8d4d-024b-442f-8365-d980fd11594d",
+		"address": "Rua Tal",
+		"quantity": 90,
+		"employees": []
+	},
+	"id": "57e3c500-6e1a-4e6e-916d-e95d500970b2"
 }
 ```
 
@@ -1152,9 +1167,8 @@
 
 ```json
 {
-	"days": 10,
-	"startDate": "2022/05/28",
-	"endDate": "2022/05/30"
+	"startDate": "2022-05-28",
+	"endDate": "2022-05-30"
 }
 ```
 
@@ -1180,6 +1194,14 @@
 {
 	"error": "Car not avaliable"
 }
+"or"
+{
+	"error": "Lease dates are in the past. Check the start date."
+}
+"or"
+{
+	"error": "Lease dates are in the past. Check the end date."
+}
 ```
 
 # 
@@ -1188,7 +1210,6 @@
 
 ```json
 {
-	"days": 10,
 	"endDate": "2022/05/30"
 }
 ```

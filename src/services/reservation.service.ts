@@ -38,7 +38,7 @@ class ReservationService {
     if (startDate.getTime() + oneDay - today.getTime() < 0) {
       return {
         status: 409,
-        message: { error: "Lease dates are in the past.Check the start date." },
+        message: { error: "Lease dates are in the past. Check the start date." },
       };
     }
     if (endDate.getTime() - today.getTime() < 0) {
