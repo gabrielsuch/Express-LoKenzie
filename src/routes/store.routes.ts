@@ -37,6 +37,9 @@ const storeRoutes = () => {
 		StoreController.deleteStoreController
 	);
 
+	route.patch("/remove/:store_id", verifyTokenMiddleware, verifyAdmMiddleware, validateSchemaMiddleware(updateStoreSchema), StoreController.removeWorkerFromStore)
+    route.patch("/worker/:store_id", verifyTokenMiddleware, verifyAdmMiddleware, validateSchemaMiddleware(updateStoreSchema), StoreController.addWorkerToStore)
+
 	return route;
 };
 

@@ -472,12 +472,14 @@
                                         {
                                             "id": "a20fb0e5-3f6f-4472-997c-6fe600e0b534",
                                             "address": "Rua Fulano",
-                                            "quantity": 55
+                                            "quantity": 55,
+                                            "employees": []
                                         },
                                         {
                                             "id": "2da99070-22af-4980-a002-d01c20ba5a3c",
                                             "address": "Rua Tal",
-                                            "quantity": 20
+                                            "quantity": 20,
+                                            "employees": []
                                         }
                                     ]
                                 }
