@@ -48,9 +48,23 @@ class CarService {
       id: body.stockedAt,
     });
 
-    const carGroup = await carGroupRepository.findOneBy({
-      id: body.group,
-    });
+    let group = null;
+
+    if (body.group) {
+      try {
+        group = await carGroupRepository.findOneBy({
+          id: body.group,
+        });
+      } catch {
+        return { status: 404, message: { error: "Group not found" } };
+      }
+
+      if (!group) {
+        return { status: 404, message: { error: "Group not found" } };
+      }
+
+      carGroupRepository.update(group.id, { quantity: group.quantity + 1 });
+    }
 
     const car = new Car();
     car.plate = body.plate;
@@ -58,7 +72,7 @@ class CarService {
     car.color = body.color;
     car.brand = body.brand;
     car.isAvailable = body.isAvailable;
-    car.group = carGroup;
+    car.group = group;
     car.stockedAt = carStockedAt;
     //Fazer uma validação/serialização
     carRepository.create(car);
@@ -93,11 +107,11 @@ class CarService {
       id: req.params.car_id,
     });
 
-    const group = await groupRepo.findOneBy({ id: carToDelete.group.id });
-
     if (!carToDelete) {
       return { status: 404, message: { error: "Car not found" } };
     }
+
+    const group = await groupRepo.findOneBy({ id: carToDelete.group.id });
 
     if (group) {
       await groupRepo.update(group.id, { quantity: group.quantity - 1 });
