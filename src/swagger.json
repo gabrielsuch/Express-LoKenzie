@@ -646,9 +646,221 @@
                 }
             }
         },
+        "/stores/worker/:store_id": {
+            "patch": {
+                "description": "Rota responsável pela Relação entre uma Loja e um Usuário",
+                "tags": ["Stores"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "example": {
+                                    "email": "jose@mail.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "id": "ddf332df-81b4-4ec1-9b24-1ff31d6449d2",
+                                        "address": "Rua Fulano Ciclano Beltrano",
+                                        "quantity": 20,
+                                        "employees": [
+                                            {
+                                                "id": "ed261d3e-957c-42b3-94d8-6167f30c6b87",
+                                                "name": "jose",
+                                                "email": "jose@mail.com",
+                                                "createdAt": "2022-06-20T14:52:23.462Z",
+                                                "updatedAt": "2022-06-20T14:52:23.462Z",
+                                                "isAdm": false,
+                                                "password": "$2b$10$9DJ1ALTqEgdaFQC6cfZR4eWW3/WepSUJ1aatseJQG5jQV3Dxz/s6q",
+                                                "reservationHistory": [
+                                                    {
+                                                        "id": "fa81c5c1-c728-427e-9752-18143e34e77e",
+                                                        "days": 5,
+                                                        "startDate": "2022-07-10",
+                                                        "endDate": "2022-07-15"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "error": "Invalid signature"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "error": "Missing Admin Permission"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "error": "Missing Authorization Token"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "objcet"
+                                },
+                                "examples": {
+                                    "user": {
+                                        "value": {
+                                            "error": "User not found"
+                                        }
+                                    },
+                                    "store": {
+                                        "value": {
+                                            "error": "Store not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/stores/remove/:store_id": {
+            "patch": {
+                "description": "Rota responsável pela Relação entre uma Loja e um Usuário",
+                "tags": ["Stores"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "example": {
+                                    "email": "jose@mail.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "id": "ddf332df-81b4-4ec1-9b24-1ff31d6449d2",
+                                        "address": "Rua Fulano Ciclano Beltrano",
+                                        "quantity": 20,
+                                        "employees": []
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "error": "Invalid signature"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "error": "Missing Admin Permission"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "error": "Missing Authorization Token"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "objcet"
+                                },
+                                "examples": {
+                                    "user": {
+                                        "value": {
+                                            "error": "User not found"
+                                        }
+                                    },
+                                    "store": {
+                                        "value": {
+                                            "error": "Store not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/cars/register": {
             "post": {
-                "description": "Rota responsável pela Criação de um carro",
+                "description": "Rota responsável pela Criação de um Carro",
                 "tags": ["Cars"],
                 "requestBody": {
                     "content": {
@@ -1002,13 +1214,13 @@
         },
         "/cars/groups/register": {
             "post": {
-                "description": "Rota responsável pela Criação de um Car Group",
-                "tags": ["Car Group"],
+                "description": "Rota responsável pela Criação de um Grupo",
+                "tags": ["Group"],
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#components/schemas/CarGroup"
+                                "$ref": "#components/schemas/Group"
                             },
                             "example": {
                                 "description": "Descrição",
@@ -1079,7 +1291,7 @@
         "/cars/groups/add/:group_id": {
             "post": {
                 "description": "Rota responsável pela Relação entre Carros e Grupos",
-                "tags": ["Car Group"],
+                "tags": ["Group"],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1152,8 +1364,8 @@
         },
         "/cars/groups": {
             "get": {
-                "description": "Rota responsável por retornar todos os Cars Groups",
-                "tags": ["Car Group"],
+                "description": "Rota responsável por retornar todos os Groups",
+                "tags": ["Group"],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1179,8 +1391,8 @@
         },
         "/cars/groups/:id": {
             "get": {
-                "description": "Rota responsável por retornar um único Car Group",
-                "tags": ["Car Group"],
+                "description": "Rota responsável por retornar um único Grupo",
+                "tags": ["Group"],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1214,13 +1426,13 @@
                 }
             },
             "patch": {
-                "description": "Rota responsável por atualizar um Car Group",
-                "tags": ["Car Group"],
+                "description": "Rota responsável por atualizar um Grupo",
+                "tags": ["Group"],
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#components/schemas/CarGroup"
+                                "$ref": "#components/schemas/Group"
                             },
                             "example": {
                                 "price": 4592
@@ -1300,8 +1512,8 @@
                 }
             },
             "delete": {
-                "description": "Rota responsável por Deletar um Car Group",
-                "tags": ["Car Group"],
+                "description": "Rota responsável por Deletar um Grupo",
+                "tags": ["Group"],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1521,7 +1733,7 @@
                     }
                 }
             },
-            "CarGroup": {
+            "Group": {
                 "type": "object",
                 "properties": {
                     "description": {

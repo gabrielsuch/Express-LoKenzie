@@ -8,23 +8,23 @@ import { Request } from "express";
 dotenv.config();
 
 class mailerService {
-	successReservationMail = (req: Request, user: User, car: Car) => {
-		const startDate = new Date(req.validated["startDate"])
-		const endDate = new Date(req.validated["endDate"])
+  successReservationMail = (req: Request, user: User, car: Car) => {
+    const startDate = new Date(req.validated["startDate"]);
+    const endDate = new Date(req.validated["endDate"]);
 
 		const serializerDate = (date: Date) => {
 			return `${date.getDate()}/${(date.getMonth() + 1)}/${date.getFullYear()}`
 		}
 
-		const handlebarOptions = {
-			viewEngine: {
-				partialsDir: path.resolve("./src/views/"),
-				defaultLayout: undefined,
-			},
-			viewPath: path.resolve("./src/views/"),
-		};
+    const handlebarOptions = {
+      viewEngine: {
+        partialsDir: path.resolve("./src/views/"),
+        defaultLayout: undefined,
+      },
+      viewPath: path.resolve("./src/views/"),
+    };
 
-		transport.use("compile", hbs(handlebarOptions));
+    transport.use("compile", hbs(handlebarOptions));
 
 		const mailOptions = {
 			from: process.env.ADMIN_EMAIL,
