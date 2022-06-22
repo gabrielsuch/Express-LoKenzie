@@ -6,6 +6,8 @@ const updateCarSchema = yup.object().shape({
   color: yup.string().optional(),
   brand: yup.string().optional(),
   isAvaliable: yup.boolean().optional(),
+  group: yup.string().optional(),
+  stockedAt: yup.string().optional(),
 });
 
 export default updateCarSchema;
