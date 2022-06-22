@@ -12,7 +12,7 @@ export class UserCarReservation {
   @PrimaryGeneratedColumn("uuid")
   id?: string;
 
-  @Column({ type: "integer" })
+  @Column({ type: "integer", nullable: true })
   days: number;
 
   @Column({ type: "date" })
