@@ -1,4 +1,4 @@
-import "reflect-metadata"
+import "reflect-metadata";
 import { DataSource } from "typeorm";
 import dotenv from "dotenv";
 import path from "path";
@@ -7,13 +7,13 @@ import path from "path";
 dotenv.config();
 
 const AppDataSource = new DataSource({
-    type: "postgres",
-    url: process.env.DATABASE_URL,
-    // ssl: {rejectUnauthorized: false},
+  type: "postgres",
+  url: process.env.DATABASE_URL,
+  ssl: {rejectUnauthorized: false},
 
-    entities: [path.join(__dirname, "./entities/**/*.{js,ts}")],
-    migrations: [path.join(__dirname, "./migrations/**/*.{js,ts}")]
-    // namingStrategy: new SnakeNamingStrategy()
+  entities: [path.join(__dirname, "./entities/**/*.{js,ts}")],
+  migrations: [path.join(__dirname, "./migrations/**/*.{js,ts}")],
+  // namingStrategy: new SnakeNamingStrategy(),
 });
 
 export default AppDataSource;
