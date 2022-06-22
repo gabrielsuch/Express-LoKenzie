@@ -1,9 +1,9 @@
 import { Request } from "express";
 
 import AppDataSource from "../data-source";
-import { Car } from "../entities";
+import { Car, CarGroup } from "../entities";
 import { Store } from "../entities";
-import { CarGroup } from "../entities";
+
 class CarService {
   getAllCarsService = async () => {
     const carRepository = AppDataSource.getRepository(Car);
@@ -87,12 +87,20 @@ class CarService {
 
   deleteCarByIdService = async (req: Request) => {
     const carRepository = AppDataSource.getRepository(Car);
+    const groupRepo = AppDataSource.getRepository(CarGroup);
+
     const carToDelete = await carRepository.findOneBy({
       id: req.params.car_id,
     });
 
+    const group = await groupRepo.findOneBy({ id: carToDelete.group.id });
+
     if (!carToDelete) {
       return { status: 404, message: { error: "Car not found" } };
+    }
+
+    if (group) {
+      await groupRepo.update(group.id, { quantity: group.quantity - 1 });
     }
 
     carRepository.delete(req.params.car_id);
