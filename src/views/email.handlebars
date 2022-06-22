@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <style>
+    	body {
+			background-color: lightblue;
+			text-align:center;
+			display: flex;
+			flex-direction: column;
+		}
+
+		td, th {
+  			border:1px solid black;
+			text-align: center;
+			}
+
+	  	h2 {
+			color: black;
+			text-shadow:5px 5px 5px white;
+			font-family: verdana;
+		}
+    </style>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Carro alugado com sucesso!</title>
+  </head>
+  <body>
+    <h2>{{client}}, tudo certo com o aluguel do seu carro!</h2>
+
+	<h3>Obrigado por escolher a LoKenzie!</h3>
+	<table>
+		<tr>
+			<th>Nome</th>
+			<th>Carro</th>
+			<th>Data de locação</th>
+			<th>Data de devolução</th>
+		</tr>
+		<tr>
+			<td>{{client}}</td>
+			<td>{{car}}</td>
+			<td>{{startDate}}</td>
+			<td>{{endDate}}</td>
+		</tr>
+
+	</table>
+  </body>
+</html>
