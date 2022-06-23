@@ -5,6 +5,7 @@ import UserController from "../controllers/user.controller";
 import validateSchemaMiddleware from "../middlewares/validateSchema.middleware";
 import verifyTokenMiddleware from "../middlewares/verifyToken.middleware";
 import verifyAdmMiddleware from "../middlewares/verifyAdm.middleware";
+import verifyUUIDMiddleware from "../middlewares/verifyUUID.middleware";
 
 import createUserSchema from "../schemas/user/createUser.schema";
 import loginSchema from "../schemas/user/login.schema";
@@ -32,6 +33,7 @@ const userRoutes = () => {
 	);
 	route.patch(
 		"/:user_id",
+		verifyUUIDMiddleware,
 		verifyTokenMiddleware,
 		getUserIdOr404Middleware,
 		validateSchemaMiddleware(updateUserSchema),
@@ -39,6 +41,7 @@ const userRoutes = () => {
 	);
 	route.delete(
 		"/:user_id",
+		verifyUUIDMiddleware,
 		verifyTokenMiddleware,
 		getUserIdOr404Middleware,
 		UserController.deleteUserController
