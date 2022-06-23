@@ -18,7 +18,7 @@ class UserController {
 
     updateUserController = async (req: Request, res: Response) => {
         const user = await UserService.updateUserService(req)
-
+        
         return res.status(user.status).json(user.message)
     }
 
