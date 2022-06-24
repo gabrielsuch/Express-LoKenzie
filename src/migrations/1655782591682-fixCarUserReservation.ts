@@ -15,11 +15,11 @@ export class fixCarUserReservation1655782591682 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "store" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "address" character varying(100) NOT NULL, "quantity" integer NOT NULL, CONSTRAINT "UQ_78a18178ef547bb377e5d49e6fe" UNIQUE ("address"), CONSTRAINT "PK_f3172007d4de5ae8e7692759d79" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "cars" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "plate" character varying(10) NOT NULL, "year" character(4) NOT NULL, "color" character varying(50) NOT NULL, "brand" character varying(50) NOT NULL, "isAvailable" boolean NOT NULL DEFAULT true, "groupId" uuid, "stockedAtId" uuid, CONSTRAINT "UQ_a309ce7ba400919557999e69be1" UNIQUE ("plate"), CONSTRAINT "PK_fc218aa84e79b477d55322271b6" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "groups" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "description" text NOT NULL, "quantity" integer NOT NULL, "price" double precision NOT NULL, CONSTRAINT "PK_659d1483316afb28afd3a90646e" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`ALTER TABLE "reservation" ADD CONSTRAINT "FK_529dceb01ef681127fef04d755d" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "reservation" ADD CONSTRAINT "FK_2d51eea28bf301076d640182058" FOREIGN KEY ("carId") REFERENCES "cars"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "users" ADD CONSTRAINT "FK_776c6be7463144d2df42a89c2e7" FOREIGN KEY ("employedAtId") REFERENCES "store"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "cars" ADD CONSTRAINT "FK_42e0bd3fb943f2f645c2c8a643a" FOREIGN KEY ("groupId") REFERENCES "groups"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "cars" ADD CONSTRAINT "FK_9ffcffde90ca963f614abedd0d5" FOREIGN KEY ("stockedAtId") REFERENCES "store"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "reservation" ADD CONSTRAINT "FK_529dceb01ef681127fef04d755d" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "reservation" ADD CONSTRAINT "FK_2d51eea28bf301076d640182058" FOREIGN KEY ("carId") REFERENCES "cars"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "users" ADD CONSTRAINT "FK_776c6be7463144d2df42a89c2e7" FOREIGN KEY ("employedAtId") REFERENCES "store"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "cars" ADD CONSTRAINT "FK_42e0bd3fb943f2f645c2c8a643a" FOREIGN KEY ("groupId") REFERENCES "groups"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "cars" ADD CONSTRAINT "FK_9ffcffde90ca963f614abedd0d5" FOREIGN KEY ("stockedAtId") REFERENCES "store"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(
             `
                 INSERT INTO "users" ("name", "email", "password", "isAdm")
