@@ -598,9 +598,18 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object",
-                                    "example": {
-                                        "error": "Invalid signature"
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "error_1": {
+                                        "value": {
+                                            "error": "Invalid signature"
+                                        }
+                                    },
+                                    "error_2": {
+                                        "value": {
+                                            "error": "Delete all Users inside your store first"
+                                        }
                                     }
                                 }
                             }
