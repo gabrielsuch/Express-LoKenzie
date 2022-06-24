@@ -14,8 +14,7 @@ export class Store {
   quantity: number;
 
   @OneToMany(() => User, (user) => user.employedAt, {
-    eager: true,
-    onDelete: "CASCADE"
+    eager: true
   })
   employees: User[];
 

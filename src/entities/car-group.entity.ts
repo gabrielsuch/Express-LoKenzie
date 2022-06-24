@@ -16,8 +16,7 @@ export class CarGroup {
   price: number;
 
   @OneToMany(() => Car, (car) => car.group, { 
-    eager: true,
-    onDelete: "CASCADE"
+    eager: true
   })
   cars: Car[];
 }
