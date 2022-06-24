@@ -31,6 +31,7 @@ export class Car {
 
   @OneToMany(() => UserCarReservation, (ucr) => ucr.car, {
     eager: true,
+    onDelete: "CASCADE"
   })
   reservationHistory: UserCarReservation[];
 

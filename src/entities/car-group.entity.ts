@@ -15,6 +15,9 @@ export class CarGroup {
   @Column({ type: "float" })
   price: number;
 
-  @OneToMany(() => Car, (car) => car.group, { eager: true })
+  @OneToMany(() => Car, (car) => car.group, { 
+    eager: true,
+    onDelete: "CASCADE"
+  })
   cars: Car[];
 }

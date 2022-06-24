@@ -15,6 +15,7 @@ export class Store {
 
   @OneToMany(() => User, (user) => user.employedAt, {
     eager: true,
+    onDelete: "CASCADE"
   })
   employees: User[];
 
