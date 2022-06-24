@@ -1,4 +1,5 @@
 ## Link do Deploy: https://lokenzie-api.herokuapp.com
+### Acessando Documentação através do Swagger UI: https://lokenzie-api.herokuapp.com/api-documentation
 
 #
 
