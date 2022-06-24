@@ -51,6 +51,10 @@ class StoreService {
             id: req.params.store_id
         })
 
+        if(findStore.employees.length > 0) {
+            return {status: 400, message: {error: "Delete all Users inside your store first."}}
+        }
+
         await storeRepository.delete(req.params.store_id)
         
         return {status: 200, message: {message: "Store Deleted"}}
@@ -78,7 +82,7 @@ class StoreService {
         return {status: 200, message: findStore}
     }
 
-    removeWorkerFromStore =async ( req: Request ) => {
+    removeWorkerFromStore = async ( req: Request ) => {
         const storeRepository = AppDataSource.getRepository(Store)
         const userRepository = AppDataSource.getRepository(User)
 
