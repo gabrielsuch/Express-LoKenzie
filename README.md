@@ -1,5 +1,28 @@
 ## Link do Deploy: https://lokenzie-api.herokuapp.com
 
+#
+
+## API realizada com:
+- ### NodeJS
+- ### TypeScript
+- ### Express 
+- ### TypeORM
+## Foram usadas as seguintes bibliotecas no projeto: 
+- ### bcrypt 
+- ### dotenv
+- ### jsonwebtoken
+- ### nodemailer
+- ### nodemailer-express-handlebars
+- ### pg
+- ### reflect-metadata
+- ### swagger-ui-express
+- ### uuid
+- ### yup
+
+#
+
+# **Rotas e como usar:**
+
 # **Users**
 
 # ***Criação de um usuário***
