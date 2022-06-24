@@ -35,7 +35,7 @@ export class User {
   isAdm?: boolean;
 
   @OneToMany(() => UserCarReservation, (ucr) => ucr.user, {
-    eager: true,
+    eager: true
   })
   reservationHistory: UserCarReservation[];
 
