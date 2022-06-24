@@ -14,7 +14,7 @@ export class Store {
   quantity: number;
 
   @OneToMany(() => User, (user) => user.employedAt, {
-    eager: true,
+    eager: true
   })
   employees: User[];
 

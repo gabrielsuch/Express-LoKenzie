@@ -30,7 +30,7 @@ export class Car {
   isAvailable?: boolean;
 
   @OneToMany(() => UserCarReservation, (ucr) => ucr.car, {
-    eager: true,
+    eager: true
   })
   reservationHistory: UserCarReservation[];
 

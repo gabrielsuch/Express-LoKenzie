@@ -1,4 +1,28 @@
 ## Link do Deploy: https://lokenzie-api.herokuapp.com
+### Acessando Documentação através do Swagger UI: https://lokenzie-api.herokuapp.com/api-documentation
+
+#
+
+## API realizada com:
+- ### NodeJS
+- ### TypeScript
+- ### Express 
+- ### TypeORM
+## Foram usadas as seguintes bibliotecas no projeto: 
+- ### bcrypt 
+- ### dotenv
+- ### jsonwebtoken
+- ### nodemailer
+- ### nodemailer-express-handlebars
+- ### pg
+- ### reflect-metadata
+- ### swagger-ui-express
+- ### uuid
+- ### yup
+
+#
+
+# **Rotas e como usar:**
 
 # **Users**
 
@@ -531,6 +555,14 @@
 ```json
 {
 	"message": "Store Deleted"
+}
+```
+
+### `Status 400 - Bad Request`:
+
+```json
+{
+	"error": "Delete all Users inside your store first"
 }
 ```
 
