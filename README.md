@@ -534,6 +534,14 @@
 }
 ```
 
+### `Status 400 - Bad Request`:
+
+```json
+{
+	"error": "Delete all Users inside your store first"
+}
+```
+
 ### `Status 404 - Not Found:`
 
 ```json

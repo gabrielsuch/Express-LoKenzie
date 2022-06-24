@@ -52,7 +52,7 @@ class StoreService {
         })
 
         if(findStore.employees.length > 0) {
-            return {status: 400, message: {error: "Delete all Users inside your store first."}}
+            return {status: 400, message: {error: "Delete all Users inside your store first"}}
         }
 
         await storeRepository.delete(req.params.store_id)
